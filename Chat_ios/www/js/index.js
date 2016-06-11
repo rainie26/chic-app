@@ -22,6 +22,7 @@ $("#mainPage").css("display", "none");
 $("#detailPage").css("display", "none");
 
 var stopFlag = false;
+var quickFlag = false;
 var app = {
     initialize: function() {
         this.bindEvents();
@@ -49,7 +50,6 @@ var app = {
         var option;
         var flag = 0; 
 
-        $("#devicecontrol").css("display", "none");
 
         // remove existing devices
         deviceList.innerHTML = "";
@@ -58,7 +58,8 @@ var app = {
 
         devices.forEach(function(device) {
             if(flag == 0){
-                flag =1;
+                flag = 1;
+                $("#devicecontrol").css("display", "none");
                 $(".devices").css("display", "block");
             }
 
@@ -82,7 +83,7 @@ var app = {
         });
 
         if (devices.length === 0) {
-
+            alert("No device found!");
             option = document.createElement('option');
             option.innerHTML = "No Bluetooth Devices";
             deviceList.appendChild(option);
@@ -117,8 +118,12 @@ var app = {
         // restart();
     },
     onData: function(data) { // data received from Arduino
-        if(data == "S01#"){
+        if(data == "S001#"){
             stopFlag = true;
+            successStop();
+        }
+        else if(data.charAt(0) == "P"){
+            // alert("Battery power: " + data.substring(2,4));
         }
         console.log(data);
     },
@@ -127,20 +132,7 @@ var app = {
         inprogress();
     },
     disconnect: function(event) {
-        setTimeout(function(){
-            var stop = "S000";
-             var success = function() {
-                console.log("success");
-                // resultDiv.innerHTML = resultDiv.innerHTML + "Sent: " + stop + "<br/>";
-                // resultDiv.scrollTop = resultDiv.scrollHeight;
-            };
 
-            var failure = function() {
-                alert("Failed writing data to Bluetooth peripheral");
-            };
-            bluetoothSerial.write(stop, success, failure);
-            restart();
-        }, 2000);
         // bluetoothSerial.disconnect(app.showMainPage, app.onError);
     },
     showMainPage: function() {
@@ -169,26 +161,26 @@ var app = {
     }
 };
 
-function getProfileNumber()
-{
-    var e = document.getElementById("foodCat");
-    var category = e.options[e.selectedIndex].value;
+// function getProfileNumber()
+// {
+//     var e = document.getElementById("foodCat");
+//     var category = e.options[e.selectedIndex].value;
 
-    var ee = document.getElementById("foodQuant");
-    var quant = ee.options[ee.selectedIndex].value;
+//     var ee = document.getElementById("foodQuant");
+//     var quant = ee.options[ee.selectedIndex].value;
 
-    var profileNumber = calProfile(category,quant);
-    console.log(profileNumber);
-    return profileNumber;
-}
+//     var profileNumber = calProfile(category,quant);
+//     console.log(profileNumber);
+//     return profileNumber;
+// }
 
-function calProfile(_category,_quant)
-{
-    var tempProfile;
-    //
-    tempProfile = _category+_quant;
-    return tempProfile;
-}
+// function calProfile(_category,_quant)
+// {
+//     var tempProfile;
+//     //
+//     tempProfile = _category+_quant;
+//     return tempProfile;
+// }
 
 //////////////////////////////////////////
 
@@ -225,7 +217,7 @@ function getFoodName(cate)
 }
 
 function setFoodName()
-{
+{        
     if(tempcategory.length>0){
         var cate_Min = Math.min.apply(null, tempcategory)
         _category = cate_Min;
@@ -241,6 +233,7 @@ function setFoodName()
 
 function getFoodQuant(quant)
 {
+        
     _quant = quant;
     if(quant == 1){
         $("#Q1").addClass("selected");
@@ -282,7 +275,7 @@ function getWaitingTime()
     var waitingTime = calwaitingTime(hourN, mimuteN, hours, minutes);
 
     if(waitingTime < _heatingtime){
-        alert("Time is not enough for a process!");
+        alert("You need at least "+_heatingtime+" mins!");
         //go back to settng time
     }
     else if(waitingTime>720){
@@ -301,7 +294,7 @@ function getWaitingTime()
 function calwaitingTime(hourN, mimuteN, hours, minutes)
 {
     var tempHeatingTime;
-    if (hourN>hours)
+    if (hourN > hours || (hourN == hours && mimuteN > minutes) )
         tempHeatingTime = (24 + 1*hours - 1*hourN)*60 + (1*minutes - 1*mimuteN)*1;
     else
         tempHeatingTime = (1*hours - 1*hourN)*60 + (1*minutes - 1*mimuteN)*1;
@@ -313,13 +306,17 @@ function calwaitingTime(hourN, mimuteN, hours, minutes)
 
 function backmenuPage()
 {
-    $(".optionList").css("display", "none");
-    $(".menuPage").css("display", "block");
-    $("body").css("background", "#9fe086");
-
     for(var i=1; i<5; i++)
         if($("#F"+i).hasClass("selected"))
             $("#F"+i).removeClass("selected");
+    for(var i=1; i<3; i++)
+        // if($("#Q"+i).hasClass("selected"))
+            $("#Q"+i).removeClass("selected");
+
+    $(".optionList").css("display", "none");
+    $(".menuPage").css("display", "block");
+    $("#lunchReady").css("display", "none");
+    $("body").css("background", "#9fe086");
 
     _category = null;
     _quant = null;
@@ -355,15 +352,34 @@ function inprogress()
 {
     $("#confirmDiv").css("display", "none");
     $("#heatingPro").css("display", "block");
-    heatingPro.innerHTML = "<h2>hibachi working...</h2><br/><br/>"
-                        +"<h2>your lunch<br/>will be ready at<br/>" + _myTime +"</h2><br/>"
+    heatingPro.innerHTML = "<h3>I'm working!</h3><br/><br/>"
+                        +"<h2>Your lunch<br/>will be ready at<br/>" + _myTime +"</h2><br/>"
                         +"<button class='roundBs' id='stopPro' onclick='stoppro()'>stop</button>";
 }
 
 function back2Time()
 {
-    $("#timeDiv").css("display", "block");
-    $("#confirmDiv").css("display", "none");
+    if(quickFlag == false){
+        $("#timeDiv").css("display", "block");
+        $("#confirmDiv").css("display", "none");
+    }
+    else{
+        $(".optionList").css("display", "none");
+        $("body").css("background", "#9fe086");
+        $("#detailPage").css("display", "block");
+        $(".menuPage").css("display", "block");
+        $("#confirmDiv").css("display", "none");
+    }
+}
+
+var myVar;
+function lunchReady(totalTime)
+{
+    totalTime = totalTime *1000;
+    myVar = setTimeout(function(){
+        $("#heatingPro").css("display", "none");
+        $("#lunchReady").css("display", "block");
+    }, totalTime);
 }
 
 function stoppro()
@@ -383,19 +399,24 @@ function stoppro()
     bluetoothSerial.write(data, success, failure);
 
     setTimeout(function(){
-        if (stopFlag == true)
-        {
-            $("#heatingPro").css("display", "none");
-            $(".optionList").css("display", "none");
-            $("body").css("background", "#9fe086");
-            $("#detailPage").css("display", "block");
-            $(".menuPage").css("display", "block");
+        if (stopFlag == true){
+            console.log("success stop")
             stopFlag = false;
         }
         else
             alert("Failed to stop!");
     }, 5000);
+}
 
+function successStop()
+{
+    $("#heatingPro").css("display", "none");
+    $(".optionList").css("display", "none");
+    $("body").css("background", "#9fe086");
+    $("#detailPage").css("display", "block");
+    $(".menuPage").css("display", "block");
+    // stopFlag = false;
+    clearTimeout(myVar);
 }
 
 function calHeatingPro() 
@@ -435,7 +456,9 @@ function calMsg2send()
     else 
         waitMsg = "W" + _waitingTime;
 
-    if(_heatingtime<100)
+    if(_heatingtime<10)
+        heatMsg = "H00" + _heatingtime;        
+    else if(_heatingtime<100)
         heatMsg = "H0" + _heatingtime;
     else
         heatMsg = "H" + _heatingtime;
@@ -458,11 +481,14 @@ function calMsg2send()
 
     var data = msgValue;
     bluetoothSerial.write(data, success, failure);
+    var totalTime = (_heatingtime*1 + _waitingTime*1)*60;
+    lunchReady(totalTime);
 }
 
 function quickHeat () {
+    quickFlag = true;
     //non-advanced non-robust
-    confirmText.innerHTML = "<h2>lunch<br/> to be ready in<br/>20 minnutes</h2><br/>"
+    confirmText.innerHTML = "<h2>lunch<br/> to be ready in<br/>1 minutes</h2><br/>"
 
     $(".optionList").css("display", "block");
     $(".menuPage").css("display", "none");
@@ -473,7 +499,7 @@ function quickHeat () {
     $("#heatingPro").css("display", "none");
     $("#confirmDiv").css("display", "block");
 
-    _heatingtime = 20;
+    _heatingtime = 1;
     _heatingT = 80;
     _waitingTime = 0;
 
@@ -490,6 +516,52 @@ function quickHeat () {
     else
         _myTime = hourN +":"+mimuteN;
 }
+
+// function alertDismissed()
+// {
+
+// }
+
+function pushnotification() {
+    // var push = PushNotification.init({
+    //         "ios": {
+    //             "sound": true,
+    //             "vibration": true,
+    //             "badge": true
+    //         },
+    //         "windows": {}
+    //     });
+
+
+    //     push.on('registration', function(data) {
+    //         console.log('registration event: ' + data.registrationId);
+    //         var oldRegId = localStorage.getItem('registrationId');
+    //         if (oldRegId !== data.registrationId) {
+    //             // Save new registration ID
+    //             localStorage.setItem('registrationId', data.registrationId);
+    //             // Post registrationId to your app server as the value has changed
+    //         }
+    //     });
+
+    //     push.on('error', function(e) {
+    //         console.log("push error = " + e.message);
+    //     });
+
+    //     push.on('notification', function(data) {
+    //         alert('notification event');
+    //         navigator.notification.alert(
+    //             'You are the winner!',  // message
+    //             alertDismissed,         // callback
+    //             'Game Over',            // title
+    //             'Done'                  // buttonName
+    //         );
+
+
+    //         push.finish(function() {
+    //             console.log("processing of push data is finished");
+    //         });
+    //    });
+}
 //////////////////////////////////////////
 
 
@@ -502,6 +574,7 @@ $( "#welcome" ).click(function() {
 });
 
 $( "#programButton" ).click(function() {
+    askPower();
     $(".optionList").css("display", "block");
     $(".menuPage").css("display", "none");
     $("body").css("background", "#fffff5");
@@ -516,8 +589,25 @@ $( "#programButton" ).click(function() {
 $( "#quickButton" ).click(function() {
     $(".menuPage").css("display", "none");
     quickHeat();
+    pushnotification();
+    askPower();
 });
 
+function askPower() {
+    var msgValue = "P000";
+    //with response of"S001"
+
+    var success = function() {
+        console.log("success");
+    };
+
+    var failure = function() {
+        alert("Failed writing data to Bluetooth peripheral");
+    };
+
+    var data = msgValue;
+    bluetoothSerial.write(data, success, failure);
+}
 
 // test
 // $( "#refreshButton" ).click(function() {

@@ -19,6 +19,13 @@ h1 {
     font-size: 1.6em;
 }
 
+h3 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.6em;
+    color: #e55e3c;
+}
+
 button {
     margin: 15px;
     -webkit-appearance:none;
@@ -55,8 +62,8 @@ ul {
 
 li {
     text-align: center;
-    border: 2px #c15c30 solid;
-    color: #c15c30;
+    border: 2px #e55e3c solid;
+    color: #e55e3c;
     margin-left: -40px;
     margin-top: -1px;
     /*padding: 5px;*/
@@ -67,8 +74,8 @@ li {
 
 
 li.selected{
-    background: #c15c30;
-    border: 2px #c15c30 solid;
+    background: #e55e3c;
+    border: 2px #e55e3c solid;
     border-bottom: 2px #fffff5 solid;
     color: #fffff5;
 }
@@ -81,7 +88,7 @@ button {
 
 h2{
     font-size: 1em;
-    color: #c15c30;
+    color: #e55e3c;
     margin-top: -2.5em;
     margin-bottom: 1.5em;
     font-weight: normal;
@@ -193,7 +200,7 @@ display:block;
     top: 20%;
     bottom: 20%;
     text-align: center;
-    color: #c15c30;
+    color: #e55e3c;
 }
 
 .roundB{
@@ -201,18 +208,18 @@ display:block;
     width: 6em;
     border-radius: 6em;
     background: #fffff5;
-    border: 2px solid #c15c30;
+    border: 2px solid #e55e3c;
     font-size: 1.1em;
     font-weight: lighter;
-    color: #c15c30;
+    color: #e55e3c;
 }
 
 .roundBs{
     height: 4em;
     width: 4em;
     border-radius: 4em;
-    background: #c15c30;
-    border: 2px solid #c15c30;
+    background: #e55e3c;
+    border: 2px solid #e55e3c;
     font-size: 0.9em;
     font-weight: lighter;
     color: #fffff5;
@@ -263,7 +270,7 @@ display:block;
 }
 
 .options li input{
-    color: #c15c30;
+    color: #e55e3c;
     border: none;
     background: none;
     font-size: 1em;
@@ -284,9 +291,9 @@ display:block;
 
 #quitP{
     background: none;
-    color: #c15c30;
+    color: #e55e3c;
     position: absolute;
-    top: 0.2em;
+    top: 0.6em;
     right: 0.1em;
 }
 
@@ -304,11 +311,15 @@ display:block;
 }
 
 #sendButton{
-    background: #c15c30;
+    background: #e55e3c;
     color: #fffff5;
 }
 
 #cancelTime{
-    color: #c15c30;
+    color: #e55e3c;
     background: #fffff5;
+}
+
+#lunchReady{
+    display: none;
 }

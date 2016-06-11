@@ -89,8 +89,12 @@
                         <button class="roundB" id="sendButton" onclick = "testsend()">Yes</button><br/>
                         <button class="roundBs" id = "cancelTime" onclick="back2Time()">No</button>
                     </div>
-                    <div id = "heatingPro">
-                    <div>
+                    <div id = "heatingPro"></div>
+                    <div id = "lunchReady">
+                        <br/><h3>Lunch is ready!</h3><br/><br/><br/>
+                        <h2>Don’t forget to charge<br/>your battery.</h2>
+                        <button class="roundBs" id="quitP" onclick="backmenuPage()">quit</button>
+                    </div>
 
 
                 </div>
@@ -141,6 +145,7 @@
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script> 
+<!--  <script type="text/javascript" src="js/PushNotification.js"></script>-->
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
