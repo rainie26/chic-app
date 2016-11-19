@@ -61,15 +61,12 @@ ul {
 }
 
 li {
-    text-align: center;
     border: 2px #e55e3c solid;
     color: #e55e3c;
-    margin-left: -40px;
-    margin-top: -1px;
-    /*padding: 5px;*/
-    padding-top: 10px;
-    min-height: 35px;
+    margin-left: -20px;
+    /*width: 45%;*/
     font-size: 0.9em;
+    height: 100px;
 }
 
 
@@ -215,14 +212,14 @@ display:block;
 }
 
 .roundBs{
-    height: 4em;
-    width: 4em;
+    height: 3.2em;
+    width: 3.2em;
     border-radius: 4em;
     background: #e55e3c;
-    border: 2px solid #e55e3c;
+    border: 2px solid #ffffff;
     font-size: 0.9em;
     font-weight: lighter;
-    color: #fffff5;
+    color: #ffffff;
 }
 
 #refreshButton{
@@ -241,7 +238,10 @@ display:block;
 
 .devices li{
     font-size: 1.1em;
-    padding: 0.2em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    width: 100%;
+    height: auto;
 }
 
 
@@ -262,11 +262,17 @@ display:block;
 }
 
 .options{
-    width: 25%;
+    width: 60%;
     position: absolute;
-    left: 32.5%;
-    right: 32.5%;
+    left: 10%;
+    right: 10%;
     margin-top: 0.5em;
+}
+
+.options li{
+    width: 50%;
+    margin-top: 0.4em;
+    margin-bottom: 0.3em;
 }
 
 .options li input{
@@ -277,23 +283,44 @@ display:block;
     text-align: center;
 }
 
+.food li{
+    border:none;
+}
+
+.quant{
+    left: 28%;  
+}
+
+.time{
+    left: 26%;
+}
+.time li{
+    height: auto;
+}
+
 .navigateB{
+    width: 2em;
+    height: 2em;
     position: absolute;
-    bottom: 3em;
-    left: 3.8em;
+    top: 17.5em;
+    border: none;
+    left: 4.5em;
 }
 
 .navigateN{
+    width: 2em;
+    height: 2em;
     position: absolute;
-    bottom: 3em;
-    right: 3.8em;
+    top: 17.5em;
+    border: none;
+    right: 4.5em;
 }
 
 #quitP{
     background: none;
-    color: #e55e3c;
+    color: #ffffff;
     position: absolute;
-    top: 0.6em;
+    bottom: 4em;
     right: 0.1em;
 }
 
@@ -322,4 +349,38 @@ display:block;
 
 #lunchReady{
     display: none;
+}
+
+.icon{
+    width: 90px;
+}
+
+#foodDiv{
+    position: relative;
+    top: -375px;
+}
+
+#quantDiv{
+    position: relative;
+    top: -375px;
+}
+
+#timeDiv{
+    position: relative;
+    top: -375px;
+}
+
+#confirmDiv{
+    position: relative;
+    top: -375px;
+}
+
+#heatingPro{
+    position: relative;
+    top: -375px;
+}
+
+#lunchReady{
+    position: relative;
+    top: -375px;
 }

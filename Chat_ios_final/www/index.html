@@ -22,8 +22,7 @@
                     </div>
                     <div class = "devices">
                         <ul id = "deviceList">
-                            <!-- test -->
-                            <!-- <li><b>Hibachi</b><br/>ID: -mmmmm;</li> -->
+                            <!-- <li>222</li> -->
                         </ul>
                     </div>
                 </div>
@@ -33,52 +32,59 @@
                 <div class = "menuPage">
                     <img id = "menubg" class = "page" src="images/pages/page3.png"/>
                     <img id = "menuButton" class = "menuB" src="images/icons/menu.png"/>
-                    <button class = "roundB" id = "programButton">program<br/>my<br/>lunch</button><br/>
+                    <button class = "roundB" id = "programButton">program<br/>lunch</button><br/>
                     <button class = "roundB" id = "quickButton">quick<br/>start</button>
                 </div>
 
 
                 <div class = "optionList">
-                    <img id = "optionbg" class = "page" src="images/pages/page4.png"/>
+                    <img id = "optionbg1" class = "page" src="images/pages/page5.png"/>
+                    <img id = "optionbg2" class = "page" src="images/pages/page4.png"/>
                     <div id = "foodDiv">
-                        <h2>select your<br/>food</h2>
-                        <ul class="options">
-                            <li id = "F1" onclick ="getFoodName('1');">meat/fish</li>
-                            <li id = "F2" onclick ="getFoodName('2');">rice/pasta</li>
-                            <li id = "F3" onclick ="getFoodName('3');">vegetables</li>
-                            <li id = "F4" onclick ="getFoodName('4');">soups</li>
+                        <h2>type<br/></h2>
+                        <ul class="options food">
+                            <li id = "F1" onclick ="getFoodName('1');" style="float:left">
+                                <img class = "icon" src = "images/icons/fish.png" / >
+                            </li>
+                            <li id = "F2" onclick ="getFoodName('2');" style="float:right">
+                                <img class = "icon" src = "images/icons/soup.png" / >
+                            </li>
+                            <li id = "F3" onclick ="getFoodName('3');" style="float:left">
+                                <img class = "icon" src = "images/icons/vege.png" / >
+                            </li>
+                            <li id = "F4" onclick ="getFoodName('4');" style="float:right">soups</li>
                         </ul>
 
-                        <button class="roundBs navigateB" id="foodBack" onclick="backmenuPage()">back</button>
-                        <button class="roundBs navigateN" id="foodNext" onclick="setFoodName()">next</button>
+                        <button class="roundBs navigateB" id="foodBack" onclick="backmenuPage()"></button>
+                        <button class="roundBs navigateN" id="foodNext" onclick="setFoodName()"></button>
 
                         <button class="roundBs" id="quitP" onclick="backmenuPage()">quit</button>
                     </div>
 
                     <div id = "quantDiv">
-                        <h2>select<br/>quantity of<br/>food</h2>
-                        <ul class="options">
+                        <h2>quantity<br/></h2>
+                        <ul class="options quant">
                             <li id = "Q1" onclick ="getFoodQuant('1');">full</li>
                             <li id = "Q2" onclick ="getFoodQuant('2');">half</li>
                         </ul>
 
-                        <button class="roundBs navigateB" id="foodBack" onclick="backFoodPage()">back</button>
-                        <button class="roundBs navigateN" id="foodNext" onclick="setFoodQuant()">next</button>
+                        <button class="roundBs navigateB" id="foodBack" onclick="backFoodPage()"></button>
+                        <button class="roundBs navigateN" id="foodNext" onclick="setFoodQuant()"></button>
 
                         <button class="roundBs" id="quitP" onclick="backmenuPage()">quit</button>
                     </div>
 
                     <div id = "timeDiv">
-                        <h2>set time to<br/>eat</h2>
-                        <ul class="options">
+                        <h2>lunchtime<br/></h2>
+                        <ul class="options time">
                             <br/><li>
                                 <input id ="myTime" type = "time" value = "12:30">:
                                 <!-- <input id ="hour" type = "number" min="0" max="23" value = "12">: -->
                                 <!-- <input id ="minute" type = "number" min="0" max="59" value = "30"><br/> -->
                             </li>
                         </ul>
-                        <button class="roundBs navigateB" id="timeBack" onclick="backQuantPage()">back</button>
-                        <button class="roundBs navigateN" id="timeNext"  onclick="getWaitingTime()">set</button>
+                        <button class="roundBs navigateB" id="timeBack" onclick="backQuantPage()"></button>
+                        <button class="roundBs navigateN" id="timeNext"  onclick="getWaitingTime()"></button>
 
                         <button class="roundBs" id="quitP" onclick="backmenuPage()">quit</button>
                     </div>

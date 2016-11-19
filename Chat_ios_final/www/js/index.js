@@ -226,6 +226,9 @@ function setFoodName()
 
         $("#foodDiv").css("display", "none");
         $("#quantDiv").css("display", "block");
+
+        $("#optionbg1").css("display", "none");
+        $("#optionbg2").css("display", "block");
     }
     else
         alert("Please select your food!");
@@ -332,12 +335,17 @@ function backFoodPage()
 {
     $("#foodDiv").css("display", "block");
     $("#quantDiv").css("display", "none");
+    $("#optionbg1").css("display", "block");
+    $("#optionbg2").css("display", "none");
 }
 
 function backQuantPage()
 {
     $("#quantDiv").css("display", "block");
     $("#timeDiv").css("display", "none");
+
+    $("#optionbg2").css("display", "block");
+    $("#optionbg1").css("display", "none");
 }
 
 
@@ -486,6 +494,8 @@ function calMsg2send()
 }
 
 function quickHeat () {
+
+    $("#optionbg1").css("display", "none");
     quickFlag = true;
     //non-advanced non-robust
     confirmText.innerHTML = "<h2>lunch<br/> to be ready in<br/>1 minutes</h2><br/>"
@@ -580,6 +590,10 @@ $( "#programButton" ).click(function() {
     $("body").css("background", "#fffff5");
     $("#foodDiv").css("display", "block");
     $("#quantDiv").css("display", "none");
+
+    $("#optionbg1").css("display", "block");
+    $("#optionbg2").css("display", "none");
+
     $("#timeDiv").css("display", "none");
 
     $("#heatingPro").css("display", "none");
